@@ -21,8 +21,9 @@ class Solution(object):
 
                 break
             elif str[i] == '-':
-                result += '-'
-                result += self.extractNum(i, str)
+                if len(str)-1 > i and str[i+1].isnumeric():
+                    result += '-'
+                    result += self.extractNum(i, str)
 
                 break
             else:
@@ -49,5 +50,5 @@ class Solution(object):
 
 
 solution = Solution()
-num = solution.myAtoi('-91283472332')
+num = solution.myAtoi('-')
 print(num)
