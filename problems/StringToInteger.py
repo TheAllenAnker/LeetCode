@@ -50,5 +50,5 @@ class Solution(object):
 
 
 solution = Solution()
-num = solution.myAtoi('-')
+num = solution.myAtoi('42')
 print(num)
