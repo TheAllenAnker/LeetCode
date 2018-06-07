@@ -18,16 +18,27 @@ class Solution:
         :rtype: bool
         """
         length = len(nums)
-        for i in range(0, length):
-            for j in range(length-1, i, -1):
-                if nums[j] > nums[i]:
-                    for k in range(i+1, j):
-                        if nums[k] > nums[j]:
-                            return True
+        if length < 3:
+            return False
+        min_left = [0] * length
+        # find the smallest number on the left side of nums[i]
+        for i in range(1, length):
+            min_left[i] = min(min_left[i-1], nums[i])
+        k = length
+        for j in range(length - 1, -1, -1):
+            if nums[j] > min_left[j]:
+                while k < length and nums[k] <= min_left[j]: # the iteration
+                    k += 1
+                if k < length and nums[k] < nums[j]:
+                    return True
+                # the num visited before is not potential anymore?
+                # num[j] must be larger than min_left[i], so the iteration will stop when reaching old k next time?
+                k -= 1
+                nums[k] = nums[j]
 
         return False
 
 
 solution = Solution()
-nums = [-1, 3, 2, 0]
+nums = [1, 3, 2]
 print(solution.find132pattern(nums))
