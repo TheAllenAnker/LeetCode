@@ -11,10 +11,24 @@ Given a number n. You have to get exactly n 'A' on the notepad by performing the
 '''
 
 
+# based on the solution
+# provided by LeetCode
+
+# key point: Let C denote copying and P denote pasting.
+#  Then for example, in the sequence of moves CPPCPPPPCP,
+#  the groups would be [CPP][CPPPP][CP].
 class Solution:
     def minSteps(self, n):
         """
         :type n: int
         :rtype: int
         """
-        pass
+        steps = 0
+        d = 2
+        while n > 1:
+            while n % d == 0:
+                steps += d
+                n /= d
+            d += 1
+
+        return steps
