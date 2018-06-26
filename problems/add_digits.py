@@ -36,5 +36,6 @@ class Solution:
             return 0
         return 1 + (num - 1) % 9
 
+
 solution = Solution()
 print(solution.add_digit(38))
