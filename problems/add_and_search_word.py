@@ -37,7 +37,7 @@ class WordDictionary(object):
 
     def dfs(self, node, word):
         if not word:
-            if node.isWord:
+            if node.is_word:
                 self.res = True
             return
         if word[0] == ".":  # matches any character
