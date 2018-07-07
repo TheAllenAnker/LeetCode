@@ -33,18 +33,21 @@ class Solution:
         """
         def dfs(node, par=None):
             if node:
-                node.par = par
+                node.par = par  # find the parent of each node, using a new node to store the parents
                 dfs(node.left, node)
                 dfs(node.right, node)
 
         dfs(root)
 
-        queue = collections.deque([(target, 0)])
-        seen = {target}
+        queue = collections.deque([(target, 0)])  # a tuple list
+        seen = {target}  # store iterated nodes
         while queue:
-            if queue[0][1] == K:
+            #  the current nodes in queue have the same distances to the target node
+            if queue[0][1] == k:  # if the distance to the target is k
                 return [node.val for node, d in queue]
             node, d = queue.popleft()
+            # iterate through all its neighbors,
+            # starting from the target node
             for nei in (node.left, node.right, node.par):
                 if nei and nei not in seen:
                     seen.add(nei)
