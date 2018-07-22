@@ -21,20 +21,17 @@ class Solution:
         :param l2: Head of linked list two
         :rtype: ListNode
         """
-        merged_list = ListNode(0) if l1 or l2 else None
-        head = merged_list
-        while l1 or l2:
-            if not l2 or (l1 and l1.val < l2.val):
-                merged_list.val = l1.val
+        head = list = ListNode(0)
+        while l1 and l2:
+            if l1.val < l2.val:
+                list.next = l1
                 l1 = l1.next
-                merged_list.next = ListNode(0) if l1 or l2 else None
-                merged_list = merged_list.next
             else:
-                merged_list.val = l2.val
+                list.next = l2
                 l2 = l2.next
-                merged_list.next = ListNode(0) if l1 or l2 else None
-                merged_list = merged_list.next
-        return head
+            list = list.next
+        list.next = l1 or l2
+        return head.next
 
 
 solution = Solution()
