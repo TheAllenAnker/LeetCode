@@ -3,12 +3,16 @@
 """
 Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
 """
+from queue import PriorityQueue
 
 
 class ListNode:
     def __init__(self, val):
         self.val = val
         self.next = None
+
+    def __lt__(self, other):
+        return self.val < other.val
 
 
 class Solution:
@@ -18,6 +22,8 @@ class Solution:
         :type lists: List[ListNode]
         :rtype: ListNode
         """
+        # solution 1
+        '''
         if not lists:
             return None
         if len(lists) == 1:
@@ -37,6 +43,22 @@ class Solution:
             head_copy.next = l1 or l2
             l1, head_copy = head.next, head
         return head.next
+        '''
+        #solution 2
+        head = head_copy = ListNode(0)
+        q = PriorityQueue()
+        for list in lists:
+            if list:
+                q.put((list.val, list))
+        while not q.empty():
+            val, node = q.get()
+            head_copy.next = ListNode(val)
+            head_copy = head_copy.next
+            node = node.next
+            if node:
+                q.put((node.val, node))
+        return head.next
+
 
 
 solution = Solution()
@@ -50,7 +72,6 @@ l3 = ListNode(1)
 l3.next = ListNode(2)
 l3.next.next = ListNode(4)
 lists = [l1, l2, l3]
-lists = [l1]
 new_head = solution.merge_k_lists(lists)
 while new_head:
     print(new_head.val, end='->')
