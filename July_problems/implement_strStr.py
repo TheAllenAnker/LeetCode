@@ -15,12 +15,24 @@ class Solution:
         :type needle: str
         :rtype: int
         """
+        # solution one, using regular expression
+        '''
         if not needle:
             return 0
         return re.search(needle, haystack).start() if re.search(needle, haystack) else -1
+        '''
+        # solution two
+        if not (needle or haystack):
+            return 0
+        if needle not in haystack:
+            return -1
+        n = len(needle)
+        for i in range(len(haystack)):
+            if haystack[i:i+n] == needle:
+                return i
 
 
 solution = Solution()
-haystack = 'helllo'
-needle = 'o'
+haystack = 'hello'
+needle = 'll'
 print(solution.strStr(haystack, needle))
