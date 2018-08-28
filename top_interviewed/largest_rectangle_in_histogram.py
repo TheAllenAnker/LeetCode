@@ -14,6 +14,9 @@ class Solution:
         :rtype: int
         """
         heights.append(0)
+        # stack maintains the indexes of heights in ascending order
+        # so that we can calculate the area using a smaller height and bigger width
+        # and compare it with the previous area we calculate
         stack = [-1]
         ans = 0
         for i in range(len(heights)):
