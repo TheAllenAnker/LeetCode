@@ -15,7 +15,7 @@ You may assume no duplicates in the word list.
 You may assume beginWord and endWord are non-empty and are not the same.
 """
 import collections
-import string
+from collections import defaultdict
 
 
 class Solution:
@@ -26,23 +26,38 @@ class Solution:
         :type word_list: List[str]
         :rtype: int
         """
+
         # The point is to find if there is a possible sequence in the list.
         # If there is a possible sequence starting from an index, the result if always the same?
-        queue = collections.deque([(begin_word, 1)])
-        ls = string.ascii_lowercase
-        visited = set()
-        while queue:
-            word, dist = queue.popleft()
-            if word == end_word:
-                return dist
-            for i in range(len(word)):
-                for j in ls:
-                    if j != word[i]:
-                        new_word = word[:i] + j + word[i + 1:]
-                        if new_word not in visited and new_word in word_list:
-                            queue.append((new_word, dist + 1))
-                            visited.add(new_word)
-        return 0
+        def construct_dict(word_list):
+            d = defaultdict()
+            for word in word_list:
+                for i in range(len(word)):
+                    s = word[:i] + "_" + word[i + 1:]
+                    d[s] = d.get(s, []) + [word]
+            return d
+
+        def bfs_words(begin, end, dict_words):
+            queue, visited = collections.deque([(begin, 1)]), set()
+            while queue:
+                word, steps = queue.popleft()
+                if word not in visited:
+                    visited.add(word)
+                    if word == end:
+                        return steps
+                    for i in range(len(word)):
+                        # change one character
+                        s = word[:i] + "_" + word[i + 1:]
+                        # get all possible ways of change
+                        neigh_words = dict_words.get(s, [])
+                        for neigh in neigh_words:
+                            if neigh not in visited:
+                                # iterate through each possible way
+                                queue.append((neigh, steps + 1))
+            return 0
+
+        d = construct_dict(word_list or set([begin_word, end_word]))
+        return bfs_words(begin_word, end_word, d)
 
 
 solution = Solution()
