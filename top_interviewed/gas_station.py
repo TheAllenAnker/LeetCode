@@ -39,6 +39,8 @@ class Solution:
                     break
         return -1
         '''
+        # This one is...
+        '''
         diffs = [gas[i] - cost[i] for i in range(len(gas))]
         if sum(diffs) < 0:
             return -1
@@ -62,6 +64,17 @@ class Solution:
                     break
             i += 1
         return -1
+        '''
+        if sum(gas) < sum(cost):
+            return -1
+        position = 0
+        tank = 0  # current tank balance
+        for i in range(len(gas)):
+            tank += gas[i] - cost[i]  # update balance
+            if tank < 0:  # balance drops to negative, reset the start position
+                tank = 0
+                position = i + 1
+        return position
 
 
 solution = Solution()
