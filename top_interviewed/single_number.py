@@ -15,6 +15,8 @@ class Solution:
         :type nums: List[int]
         :rtype: int
         """
+        # My own solution
+        '''
         nums.sort()
         for i in range(0, len(nums), 2):
             if i + 1 < len(nums):
@@ -24,6 +26,15 @@ class Solution:
                 return nums[i]
             if nums[i] != 0:
                 return copy
+        '''
+        # Better one
+        hash_table = {}
+        for i in nums:
+            try:
+                hash_table.pop(i)
+            except:
+                hash_table[i] = 1
+        return hash_table.popitem()[0]
 
 
 solution = Solution()
