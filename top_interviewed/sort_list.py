@@ -20,7 +20,7 @@ class Solution:
         if not head or not head.next:
             return head
         # split the linked list in half
-        pre, slow, fast = None, head, head.next
+        pre, slow, fast = None, head, head
         while fast and fast.next:
             pre, slow, fast = slow, slow.next, fast.next.next
         pre.next = None
@@ -30,6 +30,8 @@ class Solution:
         return self.merge(h1, h2)
 
     def merge(self, h1, h2):
+        # Only one of h1 and h2 can be None at the end
+        # Use a pen and a sheet of paper to simulate the merge process, then it's easier to understand
         if not h1:
             return h2
         if not h2:
