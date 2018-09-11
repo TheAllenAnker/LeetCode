@@ -22,6 +22,7 @@ class Solution:
         """
         # This was my first instinct.
         # And there is a fast-slow two pointers solution.
+        '''
         if not head:
             return False
         while head:
@@ -30,3 +31,13 @@ class Solution:
             head.val = 'a'
             head = head.next
         return False
+        '''
+        try:
+            slow = head
+            fast = head.next
+            while slow is not fast:
+                slow = slow.next
+                fast = fast.next.next
+            return True
+        except:
+            return False
