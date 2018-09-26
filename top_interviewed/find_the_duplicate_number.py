@@ -26,9 +26,19 @@ class Solution:
             tortoise = nums[tortoise]
             hare = nums[nums[hare]]
             if tortoise == hare:
-                return tortoise
+                break
+
+        # Find the "entrance" to the cycle.
+        # One step at a time, they must meet in the entrance of the cycle
+        ptr1 = nums[0]
+        ptr2 = tortoise
+        while ptr1 != ptr2:
+            ptr1 = nums[ptr1]
+            ptr2 = nums[ptr2]
+
+        return ptr1
 
 
 solution = Solution()
-nums = [1, 2, 3, 3, 5, 4]
+nums = [2, 5, 9, 6, 9, 3, 8, 9, 7, 1]
 print(solution.find_duplicate(nums))
